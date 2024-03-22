@@ -6,9 +6,9 @@ const multer = require("multer");
 const User = require("../models/User");
 
 // creating JWT secret
-const crypto = require('crypto');
-const jwtSecret = crypto.randomBytes(64).toString('hex');
-console.log(jwtSecret);
+// const crypto = require('crypto');
+// const jwtSecret = crypto.randomBytes(64).toString('hex');
+// console.log(jwtSecret, " hi");
 
 
 /* Configuration Multer for File Upload */
@@ -92,7 +92,7 @@ router.post("/login", async (req, res) => {
     }
     
     /* Generate JWT token */
-    const token = jwt.sign({ id: user._id }, jwtSecret)
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
     delete user.password
 
     res.status(200).json({ token, user })

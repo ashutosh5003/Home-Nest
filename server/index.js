@@ -8,7 +8,7 @@ const authRoutes = require("./routes/auth.js")
 const listingRoutes = require("./routes/listing.js")
 const bookingRoutes = require("./routes/booking.js")
 const userRoutes = require("./routes/user.js")
-require('dotenv').config();
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
