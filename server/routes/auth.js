@@ -5,6 +5,12 @@ const multer = require("multer");
 
 const User = require("../models/User");
 
+// creating JWT secret
+const crypto = require('crypto');
+const jwtSecret = crypto.randomBytes(64).toString('hex');
+console.log(jwtSecret);
+
+
 /* Configuration Multer for File Upload */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -84,9 +90,9 @@ router.post("/login", async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid Credentials!"})
     }
-
+    
     /* Generate JWT token */
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+    const token = jwt.sign({ id: user._id }, jwtSecret)
     delete user.password
 
     res.status(200).json({ token, user })
